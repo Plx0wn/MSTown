@@ -1,0 +1,13 @@
+main: fr.plx0wn.MSTown
+name: MSTown
+description: Gestion des villes
+author: Plx0wn
+version: 1.0
+
+commands:
+   resident:
+      default: op
+   ville:
+      default: op
+   mstown:
+      default: op
