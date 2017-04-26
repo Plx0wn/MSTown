@@ -1,0 +1,18 @@
+city:
+   already-exist: "&cCette ville existe déjà."
+   dont-exist: "&cCette ville n'existe pas."
+   created: "&aVous avez créer la ville [city] !"
+
+residents:
+   add-resident: "&aLe joueur [player] a été ajouté a [city]"
+   remove-resident: "&cLe joueur [player] a été retiré de [city]"
+   not-resident: "&cCe joueur n'est pas résident de cette ville."
+
+commands:
+   no-permissions: "&cVous n'avez pas les permissions nécessaire."
+   resident-add-error: "&cEssayer /resident add [pseudo du joueur] [nom de la ville]"
+   resident-remove-error: "&cEssayer /resident remove [pseudo du joueur] [nom de la ville]"
+   city-add-error: "&cEssayer /ville add [nom de la ville]"
+   city-remove-error: "&cEssayer /ville remove [nom de la ville]"
+   reload-error: "&cIl y a eu une erreur pendant le rechargement des configs."
+   reload-sucess: "&aLes configs ont été rechargés sans erreurs."
