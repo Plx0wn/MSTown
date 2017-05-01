@@ -5,17 +5,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import fr.plx0wn.MSTown;
 import fr.plx0wn.API.City;
 import fr.plx0wn.API.Configs;
 
 public class CityCommands implements CommandExecutor {
-	
+
 	public static FileConfiguration msgConfig = MSTown.msgConfig;
 	public static FileConfiguration cityConfig = MSTown.cityConfig;
 
-	public static String colored(String msg){
+	public static String colored(String msg) {
 		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
 
@@ -23,21 +24,49 @@ public class CityCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (label.equalsIgnoreCase("ville")) {
 			if (args.length == 0) {
-				// LIST COMMANDS
+				sender.sendMessage(colored("&a---[ Commandes ]---"));
+				sender.sendMessage(colored("&a- /ville add [nom de la ville] [nom du joueur]"));
+				sender.sendMessage(colored("&a- /ville remove [nom de la ville] [nom du joueur]"));
+				sender.sendMessage(colored("&a- /ville mayor [nom de la ville] [nouveau maire]"));
+				sender.sendMessage(colored("&a- /ville founder [nom de la ville] [nom du joueur]"));
 			}
-			if(sender.hasPermission("city.add")){
-				if(args.length == 1){
-					if(args[0].equalsIgnoreCase("add")){
-						sender.sendMessage(colored(msgConfig.getString("commands.city-add-error")));
-					}
+			if (args.length == 1) {
+				if (args[0].equalsIgnoreCase("add")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-add-error")));
 				}
-				if(args.length == 2){
+				if (args[0].equalsIgnoreCase("remove")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-remove-error")));
+				}
+				if (args[0].equalsIgnoreCase("mayor")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-mayor-error")));
+				}
+				if (args[0].equalsIgnoreCase("founder")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-founder-error")));
+				}
+			}
+			if (args.length == 2) {
+				if (args[0].equalsIgnoreCase("add")) {
 					City.addCity(sender, args[1]);
 				}
-			} else {
-				sender.sendMessage(colored(msgConfig.getString("commands.no-permissions")));
+				if (args[0].equalsIgnoreCase("remove")) {
+					City.removeCity(sender, args[1]);
+				}
+				if (args[0].equalsIgnoreCase("mayor")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-mayor-error")));
+				}
+				if (args[0].equalsIgnoreCase("founder")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-founder-error")));
+				}
 			}
-			
+			if (args.length == 3) {
+				if (args[0].equalsIgnoreCase("mayor")) {
+					City.setMayor(sender, args[1], args[2]);
+				}
+				if (args[0].equalsIgnoreCase("founder")) {
+					City.setFounder(sender, args[1], args[2]);
+				}
+			}
+
 		}
 		return false;
 	}
