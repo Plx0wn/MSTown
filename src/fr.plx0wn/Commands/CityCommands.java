@@ -5,11 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 import fr.plx0wn.MSTown;
 import fr.plx0wn.API.City;
-import fr.plx0wn.API.Configs;
 
 public class CityCommands implements CommandExecutor {
 
@@ -22,13 +20,14 @@ public class CityCommands implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("ville")) {
+		if (label.equalsIgnoreCase("ville") || label.equalsIgnoreCase("city")) {
 			if (args.length == 0) {
 				sender.sendMessage(colored("&a---[ Commandes ]---"));
 				sender.sendMessage(colored("&a- /ville add [nom de la ville] [nom du joueur]"));
 				sender.sendMessage(colored("&a- /ville remove [nom de la ville] [nom du joueur]"));
 				sender.sendMessage(colored("&a- /ville mayor [nom de la ville] [nouveau maire]"));
 				sender.sendMessage(colored("&a- /ville founder [nom de la ville] [nom du joueur]"));
+				sender.sendMessage(colored("&a- /ville info [nom de la ville]"));
 			}
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("add")) {
@@ -43,6 +42,12 @@ public class CityCommands implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("founder")) {
 					sender.sendMessage(colored(msgConfig.getString("commands.city-founder-error")));
 				}
+				if (args[0].equalsIgnoreCase("list")) {
+					City.sendListCity(sender);
+				}
+				if (args[0].equalsIgnoreCase("info")) {
+					sender.sendMessage(colored(msgConfig.getString("commands.city-info-error")));
+				}
 			}
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("add")) {
@@ -56,6 +61,9 @@ public class CityCommands implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("founder")) {
 					sender.sendMessage(colored(msgConfig.getString("commands.city-founder-error")));
+				}
+				if (args[0].equalsIgnoreCase("info")) {
+					City.getCityInfos(sender, args[1]);
 				}
 			}
 			if (args.length == 3) {
