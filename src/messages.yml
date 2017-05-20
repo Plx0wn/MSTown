@@ -4,7 +4,7 @@ city:
    created: "&aVous avez créer la ville [city] !"
    removed: "&cVous avez supprimé la ville [city]."
    set-mayor: "&aLe nouveau maire de [city] est maintenant [player]."
-   set-founder: "&aLe fondateur de [city] est [player]."
+   set-founder: "&aLe fondateur de [city] est maintenant [player]."
 
 residents:
    add-resident: "&aLe joueur [player] a été ajouté a [city]."
@@ -20,6 +20,7 @@ commands:
    city-remove-error: "&cEssayez /ville remove [nom de la ville]"
    city-mayor-error: "&cEssayez /ville mayor [nom de la ville] [nom du joueur]"
    city-founder-error: "&cEssayez /ville founder [nom de la ville] [nom du joueur]"
+   city-info-error: "&cEssayez /ville info [nom de la ville]"
    reload-error: "&cIl y a eu une erreur pendant le rechargement des configs."
    reload-sucess: "&aLes configs ont été rechargés sans erreurs."
    unknow: "&cCommande inconnue."
