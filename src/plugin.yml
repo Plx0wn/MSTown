@@ -2,12 +2,28 @@ main: fr.plx0wn.MSTown
 name: MSTown
 description: Gestion des villes
 author: Plx0wn
-version: 1.0
+version: 1.1
 
 commands:
    resident:
       default: op
+      description: Gestion des résidents.
    ville:
       default: op
+      description: Gestion des villes.
+   city:
+      default: op
+      description: Gestion des villes.
    mstown:
+      default: op
+      description: Gestion du plugin.
+     
+permissions:
+   city.manage:
+      default: op
+   city.mayor:
+      default: op
+   city.admin:
+      default: op
+   city.infos:
       default: op
