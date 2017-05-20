@@ -12,6 +12,9 @@ import fr.plx0wn.MSTown;
 
 public class Resident {
 
+	public static FileConfiguration cityConfig = MSTown.cityConfig;
+	public static FileConfiguration msgConfig = MSTown.msgConfig;
+
 	public static String colored(String msg) {
 		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
@@ -28,33 +31,18 @@ public class Resident {
 		}
 	}
 
-	public static FileConfiguration cityConfig = MSTown.cityConfig;
-	public static FileConfiguration msgConfig = MSTown.msgConfig;
+	public static List<String> getResidents(String city) {
+		return cityConfig.getStringList("city." + city + ".residents");
+	}
 
 	public static void addResident(CommandSender sender, String city, String name) {
 		if (City.cityExist(city)) {
-			if (City.cityHaveMayor(city)) {
-				if (!isResident(name, city)) {
-					if (sender instanceof Player) {
-						Player player = ((Player) sender).getPlayer();
-						if (City.isMayor(player.getName(), city) | player.hasPermission("city.mayor")) {
-							sender.sendMessage(colored(msgConfig.getString("residents.add-resident")
-									.replace("[city]", city).replace("[player]", name)));
-							if (cityConfig.contains("city." + city + ".residents")) {
-								List<String> residents = cityConfig.getStringList("city." + city + ".residents");
-								residents.add(name);
-								cityConfig.set("city." + city + ".residents", residents);
-								Configs.saveConfigs();
-							} else {
-								List<String> residents = new ArrayList<>();
-								residents.add(name);
-								cityConfig.set("city." + city + ".residents", residents);
-								Configs.saveConfigs();
-							}
-						} else {
-							sender.sendMessage(colored(msgConfig.getString("commands.no-permissions")));
-						}
-					} else {
+			if (!isResident(name, city)) {
+				if (sender instanceof Player) {
+					Player player = ((Player) sender).getPlayer();
+					if (City.isMayor(player.getName(), city) | player.hasPermission("city.mayor")) {
+						sender.sendMessage(colored(msgConfig.getString("residents.add-resident").replace("[city]", city)
+								.replace("[player]", name)));
 						if (cityConfig.contains("city." + city + ".residents")) {
 							List<String> residents = cityConfig.getStringList("city." + city + ".residents");
 							residents.add(name);
@@ -66,12 +54,26 @@ public class Resident {
 							cityConfig.set("city." + city + ".residents", residents);
 							Configs.saveConfigs();
 						}
+					} else {
+						sender.sendMessage(colored(msgConfig.getString("commands.no-permissions")));
 					}
 				} else {
-					sender.sendMessage(colored(msgConfig.getString("residents.already-resident")));
+					sender.sendMessage(colored(msgConfig.getString("residents.add-resident").replace("[city]", city)
+							.replace("[player]", name)));
+					if (cityConfig.contains("city." + city + ".residents")) {
+						List<String> residents = cityConfig.getStringList("city." + city + ".residents");
+						residents.add(name);
+						cityConfig.set("city." + city + ".residents", residents);
+						Configs.saveConfigs();
+					} else {
+						List<String> residents = new ArrayList<>();
+						residents.add(name);
+						cityConfig.set("city." + city + ".residents", residents);
+						Configs.saveConfigs();
+					}
 				}
 			} else {
-				sender.sendMessage(colored("&cVous devez d'abord choisir un maire."));
+				sender.sendMessage(colored(msgConfig.getString("residents.already-resident")));
 			}
 		} else {
 			sender.sendMessage(colored(msgConfig.getString("city.dont-exist")));
@@ -84,8 +86,8 @@ public class Resident {
 				if (sender instanceof Player) {
 					Player player = ((Player) sender).getPlayer();
 					if (City.isMayor(player.getName(), city) | player.hasPermission("city.mayor")) {
-						sender.sendMessage(colored(msgConfig.getString("residents.remove-resident").replace("[city]", city)
-								.replace("[player]", name)));
+						sender.sendMessage(colored(msgConfig.getString("residents.remove-resident")
+								.replace("[city]", city).replace("[player]", name)));
 						List<String> residents = cityConfig.getStringList("city." + city + ".residents");
 						residents.remove(name);
 						cityConfig.set("city." + city + ".residents", residents);
