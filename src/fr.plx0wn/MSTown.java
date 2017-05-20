@@ -25,28 +25,35 @@ public class MSTown extends JavaPlugin {
 		createFiles();
 		CommandExecutor cExecutor = new CityCommands();
 		getCommand("ville").setExecutor(cExecutor);
+		getCommand("city").setExecutor(cExecutor);
 		CommandExecutor rExecutor = new ResidentCommands();
 		getCommand("resident").setExecutor(rExecutor);
 		CommandExecutor mExecutor = new MainCommands();
 		getCommand("mstown").setExecutor(mExecutor);
 	}
 	
-	public static void createFiles() {
-		msgFile = new File(instance.getDataFolder(), "messages.yml");
-		cityFile = new File(instance.getDataFolder(), "city.yml");
+	private void createFiles() {
 
+		cityFile = new File(getDataFolder(), "city.yml");
+		msgFile = new File(getDataFolder(), "messages.yml");
 		if (!cityFile.exists()) {
 			cityFile.getParentFile().mkdirs();
-			instance.saveResource("city.yml", false);
+			saveResource("city.yml", false);
 		}
-		
 		if (!msgFile.exists()) {
 			msgFile.getParentFile().mkdirs();
-			instance.saveResource("messages.yml", false);
+			saveResource("messages.yml", false);
 		}
 
-		msgConfig = YamlConfiguration.loadConfiguration(msgFile);
-		cityConfig = YamlConfiguration.loadConfiguration(cityFile);
+		try {
+			cityConfig = new YamlConfiguration();
+			cityConfig.load(cityFile);
+
+			msgConfig = new YamlConfiguration();
+			msgConfig.load(msgFile);
+		} catch (InvalidConfigurationException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
