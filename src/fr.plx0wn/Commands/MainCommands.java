@@ -31,13 +31,6 @@ public class MainCommands implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("reload")){
 						Configs.reloadConfigs(sender);
 					}
-					if(args[0].equalsIgnoreCase("test")){
-						try {
-							sender.sendMessage(City.getCity("rftfejlgrhnerkfuje"));
-						} catch (Exception e){
-							sender.sendMessage("Cette ville n'existe pas");
-						}
-					}
 				}
 			}
 		}
